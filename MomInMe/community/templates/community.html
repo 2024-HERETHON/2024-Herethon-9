@@ -19,79 +19,93 @@
         <header>
             <div class="header-content">
                 <button class="back-btn">
-                    <img src="../../static/images/back_icon.png" alt="돌아가기">
+                    <img src="{% static 'images/back_icon.png' %}" alt="돌아가기">
                 </button>
                 <p class="page-title">커뮤니티</p>
                 <button class="search-btn">
-                    <img src="../../static/images/search_header_icon.png" alt="검색">
+                    <img src="{% static 'images/search_header_icon.png' %}" alt="검색">
                 </button>
                 <button class="home-btn">
-                    <img src="../../static/images/home_icon.png" alt="홈">
+                    <img src="{% static 'images/home_icon.png' %}" alt="홈">
                 </button>
             </div>
         </header>
-            <main>
-                <div class="whats-new-section">
-                    <div class="whats-new-header">
-                        <p class="whatsnew">What's New</p>
-                        <button class="add-story-btn" onclick="toggleModal('story-modal', event)">
-                            <img src="../../static/images/story_icon.png" alt="+">
-                        </button>
-                    </div>
-                    {% for post in posts %}
-                    <div class="profile-post-row">
-                        <div class="profile">
-                            {% if post.user == request.user %}
-                            <!-- 현재 로그인한 사용자일 경우 -->
-                            <img src="{{ request.user.userprofile.profile_picture.url }}" alt="프로필 사진">
-                            <div class="profile-info">
-                                <p class="profile-id">{{ request.user.userprofile.mom_id }}</p>
-                                <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
-                            </div>
+        <main>
+            <div class="whats-new-section">
+                <div class="whats-new-header">
+                    <p class="whatsnew">What's New</p>
+                    <button class="add-story-btn" onclick="toggleModal('story-modal', event)">
+                        <img src="{% static 'images/story_icon.png' %}" alt="+">
+                    </button>
+                </div>
+                {% for post in posts %}
+                <div class="profile-post-row">
+                    <div class="profile">
+                        {% if post.user == request.user %}
+                        <!-- 현재 로그인한 사용자일 경우 -->
+                        <img src="{{ request.user.userprofile.profile_picture.url }}" alt="프로필 사진">
+                        <div class="profile-info">
+                            <p class="profile-id">{{ request.user.userprofile.mom_id }}</p>
+                            <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
+                        </div>
                         {% else %}
-                            <!-- 다른 사용자의 경우 -->
-                            <img src="{{ post.user.userprofile.profile_picture.url }}" alt="프로필 사진">
-                            <div class="profile-info">
-                                <p class="profile-id">{{ post.user.userprofile.mom_id }}</p>
-                                <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
-                            </div>
+                        <!-- 다른 사용자의 경우 -->
+                        <img src="{{ post.user.userprofile.profile_picture.url }}" alt="프로필 사진">
+                        <div class="profile-info">
+                            <p class="profile-id">{{ post.user.userprofile.mom_id }}</p>
+                            <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
+                        </div>
                         {% endif %}
-                        </div>
-                        <div class="post">
-                            <div class="post-images">
-                                <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-horizontal">
-                                <div class="post-content">
-                                    <div class="heart-and-like">
-                                        <span id="like-icon-{{ forloop.counter }}" class="heart-icon" onclick="toggleLike('{{ post.id }}', '{{ forloop.counter }}')">🤍</span>
-                                        <span id="like-count-{{ forloop.counter }}">{{ post.likes }}</span>
-                                        <span>👍{{ post.likes_count }}</span>
-                                    </div>
-                                    <p class="post-text">{{ post.content }}</p>
-                                </div>
-                            </div>
-                            <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-vertical">
-                            <a href="{% url 'post_update' post.id %}">
-                                <img src="../../static/images/post_edit.png" alt="수정" width="20px">
-                            </a>
-                            <a href="{% url 'post_update' post.id %}">
-                                <img src="../../static/images/post_delete.png" alt="삭제" width="20px">
-                            </a>
-                        </div>
                     </div>
-                    {% endfor %}
-            </main>
+                    <div class="post">
+                        <div class="post-images">
+                            <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-horizontal">
+                            {% if post.image2 %}
+                            <img src="{{ post.image2.url }}" alt="게시물 이미지" class="post-image-horizontal">
+                            {% endif %}
+                        </div>
+                        <div class="post-content">
+                            <div class="heart-and-like">
+                                <form action="{% url 'like_post' post.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="heart-icon">
+                                        {% if post.id in liked_posts %}
+                                            ❤️
+                                        {% else %}
+                                            🤍
+                                        {% endif %}
+                                    </button>
+                                </form>
+                                <span>{{ post.likes.count }}</span>
+                            </div>
+                            <p class="post-text">{{ post.content }}</p>
+                        </div>
+                        <!-- Only display vertical image if post.image2 exists -->
+                        <a href="{% url 'post_update' post.id %}">
+                            <img src="{% static 'images/post_edit.png' %}" alt="수정" width="20px">
+                        </a>
+                        <form action="{% url 'post_delete' post.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">
+                                <img src="{% static 'images/post_delete.png' %}" alt="삭제" width="20px">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
     
-            <footer>
-                <nav class="bottom-nav"> <!-- 하단의 네비게이션 바 -->
-                    <a href="{% url 'mainpage:home' %}"><img src="../../static/images/home_icon.png" alt="홈 아이콘"></a>
-                    <a href="../baby/baby.html"><img src="../../static/images/nav_baby.png" alt="아이 아이콘"></a>
-                    <a href="../me/me.html"><img src="../../static/images/nav_me.png" alt="나 아이콘"></a>
-                    <a href="../location/location.html"><img src="../../static/images/nav_location.png" alt="장소 아이콘"></a>
-                    <a href="{% url 'community' %}"><img src="../../static/images/nav_community.png" alt="커뮤니티 아이콘"></a>
-                </nav>
-            </footer>
-        </div>
-   
+        <footer>
+            <nav class="bottom-nav">
+                <a href="{% url 'mainpage:home' %}"><img src="{% static 'images/home_icon.png' %}" alt="홈 아이콘"></a>
+                <a href="../baby/baby.html"><img src="{% static 'images/nav_baby.png' %}" alt="아이 아이콘"></a>
+                <a href="../me/me.html"><img src="{% static 'images/nav_me.png' %}" alt="나 아이콘"></a>
+                <a href="../location/location.html"><img src="{% static 'images/nav_location.png' %}" alt="장소 아이콘"></a>
+                <a href="{% url 'community' %}"><img src="{% static 'images/nav_community.png' %}" alt="커뮤니티 아이콘"></a>
+            </nav>
+        </footer>
+    </div>
 
     <!-- 모달창 -->
     <div id="story-modal" class="modal" onclick="toggleModal('story-modal', event)">
@@ -117,10 +131,9 @@
             </div>
     </div> -->
 
-<!-- 반투명 흰색 배경 오버레이 -->
-<div id="overlay" class="overlay" onclick="toggleDeleteModal()"></div>
+    <!-- 반투명 흰색 배경 오버레이 -->
+    <div id="overlay" class="overlay" onclick="toggleDeleteModal()"></div>
 
-
-<script src="{% static 'js/community.js' %}"></script>
+    <script src="{% static 'js/community.js' %}"></script>
 </body>
 </html>
