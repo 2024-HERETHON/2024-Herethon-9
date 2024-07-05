@@ -22,11 +22,13 @@
         <main>
             <form id="post-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+            
                 <label for="file-upload-1" class="file-upload-label">
                     <div class="post-image-placeholder">
                         <img id="current-image-1" src="{% static 'images/pic_insert_icon.png' %}" width="100%" alt="이미지 삽입">
                     </div>
                 </label>
+                
                 <input type="file" id="file-upload-1" name="image" style="display: none;" onchange="previewImage('file-upload-1', 'current-image-1')">
                 
                 <label for="file-upload-2" class="file-upload-label">
@@ -35,7 +37,7 @@
                     </div>
                 </label>
                 <input type="file" id="file-upload-2" name="image2" style="display: none;" onchange="previewImage('file-upload-2', 'current-image-2')">
-                
+            
                 {{ form.content }}
                 
                 <hr class="divider">
