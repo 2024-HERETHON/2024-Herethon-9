@@ -22,13 +22,20 @@
         <main>
             <form id="post-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label for="file-upload" class="file-upload-label">
+                <label for="file-upload-1" class="file-upload-label">
                     <div class="post-image-placeholder">
-                        <img id="current-image" src="{% static 'images/pic_insert_icon.png' %}"  width="100%" alt="이미지 삽입">
+                        <img id="current-image-1" src="{% static 'images/pic_insert_icon.png' %}" width="100%" alt="이미지 삽입">
                     </div>
-            
                 </label>
-                <input type="file" id="file-upload" name="image" style="display: none;" onchange="previewImage()">
+                <input type="file" id="file-upload-1" name="image" style="display: none;" onchange="previewImage('file-upload-1', 'current-image-1')">
+                
+                <label for="file-upload-2" class="file-upload-label">
+                    <div class="post-image-placeholder">
+                        <img id="current-image-2" src="{% static 'images/pic_insert_icon.png' %}" width="100%" alt="이미지 삽입">
+                    </div>
+                </label>
+                <input type="file" id="file-upload-2" name="image2" style="display: none;" onchange="previewImage('file-upload-2', 'current-image-2')">
+                
                 {{ form.content }}
                 
                 <hr class="divider">
@@ -51,13 +58,12 @@
     </div>
     
     <script>
-        function previewImage() {
-            const input = document.getElementById('file-upload');
+        function previewImage(fileInputId, imageElementId) {
+            const input = document.getElementById(fileInputId);
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('current-image').src = e.target.result;
-                    document.getElementById('image-preview').src = e.target.result; // 이미지 미리보기 업데이트
+                    document.getElementById(imageElementId).src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -67,7 +73,6 @@
         document.querySelector('.back-btn').addEventListener('click', function() {
             window.history.back();  
         });
-
     </script> 
 </body>
 </html>

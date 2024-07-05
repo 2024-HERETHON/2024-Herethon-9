@@ -7,6 +7,7 @@ class Post(models.Model):
     location = models.CharField(max_length=255, verbose_name="위치", blank=True, null=True)
     music_url = models.URLField(verbose_name="음악 URL", blank=True, null=True)
     image = models.ImageField(upload_to='community_post_images/', blank=True, null=True)
+    image2 = models.ImageField(upload_to='community_post_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

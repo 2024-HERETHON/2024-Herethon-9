@@ -21,7 +21,14 @@
             <div class="post-image-placeholder">
                 <img id="current-image" src="{{ post.image.url }}" alt="게시물 이미지" class="left-image">
                 <div class="right-images">
-                    <img src="https://via.placeholder.com/133x131" alt="이미지 1" class="right-image">
+                    <!-- Display image2 if it exists -->
+                    {% if post.image2 %}
+                    <img src="{{ post.image2.url }}" alt="이미지 2" class="right-image">
+                    {% else %}
+                    <!-- Placeholder image or add your custom logic -->
+                    <img src="https://via.placeholder.com/133x131" alt="이미지 2" class="right-image">
+                    {% endif %}
+                    <!-- Button to open image upload -->
                     <img src="../../static/images/pic_insert_icon.png" alt="이미지 삽입" class="insert-icon" onclick="openImageUpload()">
                 </div>
             </div>

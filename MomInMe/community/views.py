@@ -49,3 +49,12 @@ def like_post(request, post_id):
     if not created:
         like.delete()
     return redirect('community')
+
+
+@login_required
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('community')
+    return render(request, 'post_delete.html', {'post': post})
