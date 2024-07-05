@@ -18,20 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    completeBtn.addEventListener("click", function() {
+    completeBtn.addEventListener("click", function(event) {
         if (selectedKeywords.length === 0) {
+            event.preventDefault();
             warningMessage.style.display = "block";
         } else {
             warningMessage.style.display = "none";
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/accounts/me_keyword/';
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-            const csrfInput = document.createElement('input');
-            csrfInput.type = 'hidden';
-            csrfInput.name = 'csrfmiddlewaretoken';
-            csrfInput.value = csrfToken;
-            form.appendChild(csrfInput);
+            const form = document.getElementById('keyword-form');
             selectedKeywords.forEach(keyword => {
                 const input = document.createElement('input');
                 input.type = 'hidden';
@@ -39,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 input.value = keyword;
                 form.appendChild(input);
             });
-            document.body.appendChild(form);
-            form.submit();
         }
     });
 });

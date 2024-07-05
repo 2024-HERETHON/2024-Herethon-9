@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'), 
     path('accounts/', include('accounts.urls')),  # accounts 애플리케이션의 urls.py를 포함
-    path('', include('mainpage.urls')),  # accounts 애플리케이션의 urls.py를 포함
+    path('mainpage/', include('mainpage.urls')),  # accounts 애플리케이션의 urls.py를 포함
     path('',include('community.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

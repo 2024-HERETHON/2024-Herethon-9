@@ -113,7 +113,7 @@ def me_keyword(request):
             mapped_keywords = map_me_keywords(keywords)
             MeKeyword.objects.create(user=request.user, keywords=mapped_keywords)
             return redirect('accounts:loading')
-    return render(request, 'mw_keyword.html')
+    return render(request, 'me_keyword.html')
 
 @login_required
 def loading(request):

@@ -6,5 +6,5 @@ from . import views
 app_name = 'mainpage'
 
 urlpatterns = [
-    path('mainpage/', views.home, name='home'),  # 첫 번째 회원가입 폼
+    path('', views.home, name='home'),  # 로딩 후 보여지는 페이지
 ]

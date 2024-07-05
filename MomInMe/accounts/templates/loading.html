@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+    <script>
+        // JavaScript에서 Django의 URL을 변수로 설정
+        const homeeUrl = "{% url 'mainpage:home' %}";
+
+    </script>
 </head>
 <body>
     <div class="frame">
