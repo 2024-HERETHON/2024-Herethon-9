@@ -4,26 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading</title>
-    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="loading.css">
 </head>
 <body>
     <div class="frame">
-        <div id="content">
-            <div class="container">
-                <h1>우리에게 꼭 맞는 제품을 찾고 있어요!</h1>
-                <p class="subtext">잠시만 기다려주세요.</p>
-                <div class="wave-container">
-                    <svg class="wave" viewBox="0 0 120 28" preserveAspectRatio="none">
-                        <path d="M0 30 Q30 10 60 30 T120 30 V50 H0 Z" fill="rgba(255, 215, 0, 0.7)">
-                            <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="10s" values="0,0; -30,0; 0,0" repeatCount="indefinite"/>
-                        </path>
-                        <path d="M0 30 Q30 15 60 30 T120 30 V50 H0 Z" fill="rgba(255, 215, 0, 0.5)">
-                            <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="8s" values="0,0; -30,0; 0,0" repeatCount="indefinite"/>
-                        </path>
-                    </svg>
-                    <div class="percentage">0%</div>
-                </div>
+        <div class="content">
+            <h1 class="title" id="title">우리에게 꼭 맞는 제품을<br>찾고 있어요!</h1>
+            <p class="subtitle" id="subtitle">잠시만 기다려주세요.</p>
+            <div class="circle">
+                <div class="wave" id="wave"></div>
+                <div class="percentage" id="percentage">0%</div>
             </div>
         </div>
     </div>
