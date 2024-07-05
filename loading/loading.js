@@ -29,3 +29,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   incrementPercentage();
 });
+// /주석추가
