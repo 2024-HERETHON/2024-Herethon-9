@@ -240,6 +240,7 @@ margin-top: 15px;
 }
 
 .submit-btn {
+<<<<<<< HEAD
     margin-top: 66px;
     margin-left: 132px;
     height: 42px;
@@ -249,6 +250,10 @@ margin-top: 15px;
     align-items: center;
     justify-content: center;
     /* padding: 10px 20px; */
+=======
+    margin-top: 10%;
+    padding: 10px 20px;
+>>>>>>> 6deec216c17cf4dd52160539da0fd8eb5eb16fbe
     border: none;
     border-radius: 20px;
     background-color: #FFCE4F;

@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "../home/home.html";
         }, 2000);
       }
+      g;
 
       percent++;
       setTimeout(incrementPercentage, 100); // Adjust this value for speed
