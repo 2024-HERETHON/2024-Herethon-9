@@ -1,8 +1,9 @@
 # myapp/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from .models import Post,Like
 from .forms import PostForm
+from django.http import JsonResponse
 
 @login_required
 def post_create(request):
@@ -39,3 +40,12 @@ def post_update(request, post_id):
         form = PostForm(instance=post)
     
     return render(request, 'post_update.html', {'form': form, 'post': post})
+
+
+@login_required
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        like.delete()
+    return redirect('community')

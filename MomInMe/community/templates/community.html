@@ -62,9 +62,17 @@
                                 <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-horizontal">
                                 <div class="post-content">
                                     <div class="heart-and-like">
-                                        <span id="like-icon-{{ forloop.counter }}" class="heart-icon" onclick="toggleLike('{{ post.id }}', '{{ forloop.counter }}')">🤍</span>
-                                        <span id="like-count-{{ forloop.counter }}">{{ post.likes }}</span>
-                                        <span>👍{{ post.likes_count }}</span>
+                                        <form action="{% url 'like_post' post.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="heart-icon">
+                                                {% if post.id in liked_posts %}
+                                                    ❤️
+                                                {% else %}
+                                                    🤍
+                                                {% endif %}
+                                            </button>
+                                        </form>
+                                        <span>{{ post.likes.count }}</span>
                                     </div>
                                     <p class="post-text">{{ post.content }}</p>
                                 </div>
