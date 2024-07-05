@@ -1,14 +1,33 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const waveContainer = document.querySelector('.wave-container .wave');
-  const percentageText = document.querySelector('.percentage');
-  let percentage = 0;
-  let interval = setInterval(() => {
-      if (percentage <= 100) {
-          percentageText.textContent = percentage + '%';
-          waveContainer.style.transform = `translateY(${100 - percentage}%)`;
-          percentage++;
-      } else {
-          clearInterval(interval);
+document.addEventListener("DOMContentLoaded", function () {
+  var wave = document.getElementById("wave");
+  var percentage = document.getElementById("percentage");
+  var title = document.getElementById("title");
+  var subtitle = document.getElementById("subtitle");
+  var percent = 0;
+
+  function incrementPercentage() {
+    if (percent <= 100) {
+      percentage.innerText = percent + "%";
+      wave.style.transform = `translateY(${100 - percent}%)`;
+
+      if (percent === 70) {
+        subtitle.innerText = "거의 다 완료 되었어요.";
       }
-  }, 100); // 100ms마다 1%씩 증가
+
+      if (percent === 100) {
+        title.innerHTML = "우리에게 꼭 맞는 제품을<br>찾았어요!";
+        subtitle.innerText = "메인페이지로 이동합니다.";
+        setTimeout(function () {
+          window.location.href = "../home/home.html";
+        }, 2000);
+      }
+      g;
+
+      percent++;
+      setTimeout(incrementPercentage, 100); // Adjust this value for speed
+    }
+  }
+
+  incrementPercentage();
 });
+// /주석추가

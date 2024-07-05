@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.keywords button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            button.classList.toggle('selected');
+        });
+    });
+
+    const completeBtn = document.getElementById('complete-btn');
+    completeBtn.addEventListener('click', function () {
+        window.location.href = '../me_keyword/me_keyword.html';
+=======
 document.addEventListener("DOMContentLoaded", function() {
     const buttons = document.querySelectorAll(".keywords button");
     const completeBtn = document.getElementById("complete-btn");
@@ -25,5 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
             warningMessage.style.display = "none";
             window.location.href = "loading.html";
         }
+>>>>>>> 6deec216c17cf4dd52160539da0fd8eb5eb16fbe
     });
 });
