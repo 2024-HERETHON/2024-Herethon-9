@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Page</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/first.css' %}">
+</head>
+<body>
+    <div class="frame">
+        <div id="content">
+            <div class="container">
+                <h1 class="service-name">M.I.M<br>MOM IN ME</h1>
+                <div class="logo">
+                    <img src="{% static 'assets/로고.png' %}" alt="로고">
+                </div>
+                <div class="button-container">
+                    <button class="login-btn"><a class="nav-link" href="{% url 'accounts:login' %}">로그인</a></button>
+                    <button class="signup-btn"><a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/first.js' %}"></script>
+</body>
+</html>

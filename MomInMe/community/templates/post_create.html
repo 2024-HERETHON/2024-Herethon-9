@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 게시물</title>
+    <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <button class="back-btn">
+                    <img src="{% static 'images/back_icon.png' %}" alt="돌아가기">
+                </button>
+                <p class="page-title">새 게시물</p>
+            </div>
+        </header>
+        
+        <main>
+            <form id="post-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file-upload" class="file-upload-label">
+                    <div class="post-image-placeholder">
+                        <img id="current-image" src="{% static 'images/pic_insert_icon.png' %}"  width="100%" alt="이미지 삽입">
+                    </div>
+            
+                </label>
+                <input type="file" id="file-upload" name="image" style="display: none;" onchange="previewImage()">
+                {{ form.content }}
+                
+                <hr class="divider">
+                <div class="location-add">
+                    <img src="{% static 'images/location_insert_icon.png' %}" alt="위치 아이콘">
+                    {{ form.location }}
+                    <img class="arrow-icon" src="{% static 'images/go_icon.png' %}" alt="화살표 아이콘">
+                </div>
+                <hr class="divider">
+                <div class="music-add">
+                    <img src="{% static 'images/music_insert_icon.png' %}" alt="음악 아이콘">
+                    {{ form.music_url }}
+                    <img class="arrow-icon" src="{% static 'images/go_icon.png' %}" alt="화살표 아이콘">
+                </div>
+                <button type="submit" class="share-btn">공유</button>
+            </form>
+            
+          
+        </main>
+    </div>
+    
+    <script>
+        function previewImage() {
+            const input = document.getElementById('file-upload');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('current-image').src = e.target.result;
+                    document.getElementById('image-preview').src = e.target.result; // 이미지 미리보기 업데이트
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // 뒤로 가기 버튼
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            window.history.back();  
+        });
+
+    </script> 
+</body>
+</html>

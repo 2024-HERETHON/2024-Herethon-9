@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sign.css' %}">
+</head>
+<body>
+    <div class="frame">
+        <div id="content">
+            <div class="container">
+                <h1 class="title">회원가입</h1>
+                <form id="sign-up-form" method="POST" action="{% url 'accounts:signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="submit-btn">완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

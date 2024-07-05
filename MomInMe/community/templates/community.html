@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>community</title>
+   
+    <link rel="stylesheet" href="{% static 'css/community.css' %}">
+    <script>
+        // JavaScript에서 Django의 URL을 변수로 설정
+        const postCreateUrl = "{% url 'post_create' %}";
+        const communityUrl = "{% url 'community' %}";
+        // 다른 페이지의 URL도 필요한 경우 추가로 설정 가능
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <button class="back-btn">
+                    <img src="../../static/images/back_icon.png" alt="돌아가기">
+                </button>
+                <p class="page-title">커뮤니티</p>
+                <button class="search-btn">
+                    <img src="../../static/images/search_header_icon.png" alt="검색">
+                </button>
+                <button class="home-btn">
+                    <img src="../../static/images/home_icon.png" alt="홈">
+                </button>
+            </div>
+        </header>
+            <main>
+                <div class="whats-new-section">
+                    <div class="whats-new-header">
+                        <p class="whatsnew">What's New</p>
+                        <button class="add-story-btn" onclick="toggleModal('story-modal', event)">
+                            <img src="../../static/images/story_icon.png" alt="+">
+                        </button>
+                    </div>
+                    {% for post in posts %}
+                    <div class="profile-post-row">
+                        <div class="profile">
+                            {% if post.user == request.user %}
+                            <!-- 현재 로그인한 사용자일 경우 -->
+                            <img src="{{ request.user.userprofile.profile_picture.url }}" alt="프로필 사진">
+                            <div class="profile-info">
+                                <p class="profile-id">{{ request.user.userprofile.mom_id }}</p>
+                                <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
+                            </div>
+                        {% else %}
+                            <!-- 다른 사용자의 경우 -->
+                            <img src="{{ post.user.userprofile.profile_picture.url }}" alt="프로필 사진">
+                            <div class="profile-info">
+                                <p class="profile-id">{{ post.user.userprofile.mom_id }}</p>
+                                <!-- 추가적인 프로필 정보는 여기에 추가할 수 있습니다 -->
+                            </div>
+                        {% endif %}
+                        </div>
+                        <div class="post">
+                            <div class="post-images">
+                                <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-horizontal">
+                                <div class="post-content">
+                                    <div class="heart-and-like">
+                                        <span id="like-icon-{{ forloop.counter }}" class="heart-icon" onclick="toggleLike('{{ post.id }}', '{{ forloop.counter }}')">🤍</span>
+                                        <span id="like-count-{{ forloop.counter }}">{{ post.likes }}</span>
+                                        <span>👍{{ post.likes_count }}</span>
+                                    </div>
+                                    <p class="post-text">{{ post.content }}</p>
+                                </div>
+                            </div>
+                            <img src="{{ post.image.url }}" alt="게시물 이미지" class="post-image-vertical">
+                            <a href="{% url 'post_update' post.id %}">
+                                <img src="../../static/images/post_edit.png" alt="수정" width="20px">
+                            </a>
+                            <a href="{% url 'post_update' post.id %}">
+                                <img src="../../static/images/post_delete.png" alt="삭제" width="20px">
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </main>
+    
+            <footer>
+                <nav class="bottom-nav"> <!-- 하단의 네비게이션 바 -->
+                    <a href="{% url 'mainpage:home' %}"><img src="../../static/images/home_icon.png" alt="홈 아이콘"></a>
+                    <a href="../baby/baby.html"><img src="../../static/images/nav_baby.png" alt="아이 아이콘"></a>
+                    <a href="../me/me.html"><img src="../../static/images/nav_me.png" alt="나 아이콘"></a>
+                    <a href="../location/location.html"><img src="../../static/images/nav_location.png" alt="장소 아이콘"></a>
+                    <a href="{% url 'community' %}"><img src="../../static/images/nav_community.png" alt="커뮤니티 아이콘"></a>
+                </nav>
+            </footer>
+        </div>
+   
+
+    <!-- 모달창 -->
+    <div id="story-modal" class="modal" onclick="toggleModal('story-modal', event)">
+        <div class="modal-content">
+            <button class="story-btn" onclick="goToStoryPage()">스토리</button>
+            <button class="post-btn" onclick="goToPostPage()">게시물</button>            
+        </div>
+    </div>
+
+    <div id="modal" class="modal" onclick="toggleModal('modal', event)">
+        <div class="modal-content">
+            <button class="edit-btn" onclick="goToRevisePage()">수정</button>
+            <button class="delete-btn" onclick="toggleModal('delete-modal', event)">삭제</button>
+        </div>
+    </div>
+
+    <!-- 삭제 모달 -->
+    <!-- <div id="delete-modal" class="delete-modal-content">
+        <p class="ruok">삭제하시겠습니까?</p><p><br>이 게시물과 관련된 내용이<br>모두 삭제됩니다.</p>
+            <div class="delete-modal-buttons">
+                <button class="confirm-btn" onclick="toggleDeleteModal()">네</button>
+                <button class="cancel-btn" onclick="toggleDeleteModal()">아니오</button>
+            </div>
+    </div> -->
+
+<!-- 반투명 흰색 배경 오버레이 -->
+<div id="overlay" class="overlay" onclick="toggleDeleteModal()"></div>
+
+
+<script src="{% static 'js/community.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- templates/setup.html -->
+
+{% load static %}
+
+{% block content %}
+<div class="frame">
+    <div id="content">
+        <div class="container">
+            <h1 class="title">회원가입 - 추가 정보 입력</h1>
+            <form id="setup-form" method="POST" enctype="multipart/form-data" action="{% url 'accounts:setup' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="submit-btn">완료</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

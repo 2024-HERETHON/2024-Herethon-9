@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+    <link rel="stylesheet" href="{% static 'css/feed_revise.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <button class="back-btn" onclick="goBack()">
+                    <img src="{% static 'images/back_icon.png' %}" alt="돌아가기">
+                </button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="post-image-placeholder">
+                <img id="current-image" src="{{ post.image.url }}" alt="게시물 이미지" class="left-image">
+                <div class="right-images">
+                    <img src="https://via.placeholder.com/133x131" alt="이미지 1" class="right-image">
+                    <img src="../../static/images/pic_insert_icon.png" alt="이미지 삽입" class="insert-icon" onclick="openImageUpload()">
+                </div>
+            </div>
+            <form id="post-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="file" id="image-input" name="image" accept="image/*" style="display: none;" onchange="previewImage()">
+                <button type="submit" class="okay-btn">확인</button>
+            </form>
+        </main>
+    </div>
+    <script src="{% static 'js/feed_revise.js' %}"></script> 
+    <script>
+        function openImageUpload() {
+            document.getElementById('image-input').click();
+        }
+
+        function previewImage() {
+            const input = document.getElementById('image-input');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('current-image').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
