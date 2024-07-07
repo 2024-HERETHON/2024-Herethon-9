@@ -29,5 +29,5 @@
 
 |함서형|이해솔|서하은|박소은|허민영|
 |------|---|---|---|---|
-|<div align="center">기획</div>|<div align="center">프론트엔드</div>|<div align="center">프론트엔드</div>|<div align="center">백엔드</div>|<div align="center">백엔드</div>|
+|<div align="center">기획 디자인</div>|<div align="center">프론트엔드</div>|<div align="center">프론트엔드</div>|<div align="center">백엔드</div>|<div align="center">백엔드</div>|
 |<div align="center"><img src="https://github.com/2024-HERETHON/2024-Herethon-9/assets/80142915/0c6c6c20-dc68-4585-a513-7184f0657089" width="100" height="100"></div>|<div align="center">---|<div align="center"><img src="https://github.com/2024-HERETHON/2024-Herethon-9/assets/80142915/5d227c17-45ee-44cb-9f05-a4a4db360140" width="100" height="100"></div>|<div align="center"><img src="https://github.com/2024-HERETHON/2024-Herethon-9/assets/80142915/c1cc2937-698b-4260-a893-fbacd19f7f7a" width="100" height="100"></div>|<div align="center">---|
